@@ -37,7 +37,8 @@ public class Radar
         
         
         //
-        currentScan = new boolean[rows][cols];
+        this.currentScan = new boolean[rows][cols];
+        this.accumulator = new int[rows][cols];
         //
         
         
@@ -78,9 +79,12 @@ public class Radar
         }
         
         this.currentScan[this.monsterLocationRow][this.monsterLocationCol] = true;
+        injectNoise();
+        /*for(boolean loc: currentScan)
+        {
+        }*/
+        numScans++;
         //
-        
-        
     }
 
     /**
@@ -180,7 +184,20 @@ public class Radar
         
         
         //
-        // !!! add code here !!!
+        for(int i = 0;
+            i < this.currentScan.length;
+            i++)
+        {
+            for(int j = 0;
+                j < this.currentScan[0].length;
+                j++)
+            {
+                if(Math.random() == noiseFraction)
+                {
+                    this.currentScan[i][j] = true;
+                }
+            }
+        }
         //
         
         
