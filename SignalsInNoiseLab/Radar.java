@@ -1,9 +1,8 @@
-
 /**
  * The model for radar scan and accumulator
  * 
- * @author @gcschmit
- * @version 19 July 2014
+ * @author @crli
+ * @version 16 December 2015
  */
 public class Radar
 {
@@ -31,7 +30,7 @@ public class Radar
      * @param   rows    the number of rows in the radar grid
      * @param   cols    the number of columns in the radar grid
      */
-    public Radar(int rows, int cols)
+    public Radar(int rows, int cols, int rowOfMons, int colOfMons)
     {
         // initialize the currentScan 2D array and the accumulator 2D array
         
@@ -42,10 +41,9 @@ public class Radar
         //
         
         
-        // randomly set the location of the monster (can be explicity set through the
-        // setMonsterLocation method for the unit test
-        monsterLocationRow = (int)(Math.random() * rows);
-        monsterLocationCol = (int)(Math.random() * cols);
+        // sets location of monster to where user inputs
+        monsterLocationRow = (int)(rowOfMons);
+        monsterLocationCol = (int)(colOfMons);
         
         noiseFraction = 0.05;
         numScans= 0;
@@ -80,9 +78,21 @@ public class Radar
         
         this.currentScan[this.monsterLocationRow][this.monsterLocationCol] = true;
         injectNoise();
-        /*for(boolean loc: currentScan)
+        
+        for(int i = 0;
+            i < this.currentScan.length;
+            i++)
         {
-        }*/
+            for(int j = 0;
+                j < this.currentScan[0].length;
+                j++)
+            {
+                if(this.currentScan[i][j]==true)
+                {
+                    this.accumulator[i][j]++;
+                }
+            }
+        }
         numScans++;
         //
     }
@@ -192,7 +202,7 @@ public class Radar
                 j < this.currentScan[0].length;
                 j++)
             {
-                if(Math.random() == noiseFraction)
+                if(Math.random() <= noiseFraction)
                 {
                     this.currentScan[i][j] = true;
                 }
