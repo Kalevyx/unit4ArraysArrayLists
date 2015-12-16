@@ -11,67 +11,79 @@ import org.junit.Test;
  */
 public class RadarTest
 {
-    /** description of instance variable x (add comment for each instance variable) */
-    private int x;
-
-    /**
-     * Default constructor for objects of class RadarTest
-     */
-    public RadarTest()
-    {
-        // initialise instance variables
-        x = 0;
-    }
-    
-    /**
-     * Sets up the test fixture.
-     *
-     * Called before every test case method.
-     */
-    @Before
-    public void setUp()
-    {
-    }
-
-    /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
-     */
-    @After
-    public void tearDown()
-    {
-    }
-
     @Test
     public void firstCoordinate()
     {
-        Radar radar = new Radar(100, 100, 50, 50);
-        radar.scan();
+        Radar radar = new Radar(100, 100);
+        radar.setMonsterLocation(50,50);
         
-        if(radar.getAccumulatedDetection(50,50) == radar.getNumScans())
+        for(int i = 0;
+            i < 100;
+            i++)
         {
-            assertNotNull("Monster at: (50, 50)");
+            radar.scan();
         }
-        else
+        
+        int max = radar.getAccumulatedDetection(0,0);
+        int row = 0;
+        int col = 0;
+        
+        for(int i = 0;
+            i < 100;
+            i++)
         {
-            assertNull("Monster expected at: (50, 50)");
+            for(int j = 0;
+                j < 100;
+                j++)
+            {
+                if(radar.getAccumulatedDetection(i,j)>max)
+                {
+                    row = i;
+                    col = j;
+                    max = radar.getAccumulatedDetection(i,j);
+                }
+            }
         }
+        
+        assertEquals(50,row);
+        assertEquals(50,col);
     }
     
     @Test
     public void secondCoordinate()
     {
-        Radar radar = new Radar(100, 100, 25, 25);
-        radar.scan();
+        Radar radar = new Radar(100, 100);
+        radar.setMonsterLocation(25,25);
         
-        if(radar.getAccumulatedDetection(25,25) == radar.getNumScans())
+        for(int i = 0;
+            i < 100;
+            i++)
         {
-            assertNotNull("Monster at: (25, 25)");
+            radar.scan();
         }
-        else
+        
+        int max = radar.getAccumulatedDetection(0,0);
+        int row = 0;
+        int col = 0;
+        
+        for(int i = 0;
+            i < 100;
+            i++)
         {
-            assertNull("Monster expected at: (25, 25)");
+            for(int j = 0;
+                j < 100;
+                j++)
+            {
+                if(radar.getAccumulatedDetection(i,j)>max)
+                {
+                    row = i;
+                    col = j;
+                    max = radar.getAccumulatedDetection(i,j);
+                }
+            }
         }
+        
+        assertEquals(25,row);
+        assertEquals(25,col);
     }
 }

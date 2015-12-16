@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.Dimension;
 import javax.swing.JComponent;
+import java.util.Random;
 
 /**
  * Class that is responsible for rendering the current radar scan image and the accumulated radar image.
@@ -58,10 +59,13 @@ public class RadarComponent extends JComponent
     {
         Graphics2D g2 = (Graphics2D) g;
         
-        // cool radar-looking colors
-        final Color DETECTED_COLOR = new Color(184, 254, 183);
-        final Color UNDETECTED_COLOR = new Color(6, 63, 3);
+        //creating Random object to randomize color
+        Random generator = new Random();
         
+        // cool radar-looking colors (new)
+        /*final Color DETECTED_COLOR = new Color(184, 254, 183);*/
+        final Color UNDETECTED_COLOR = new Color(6, 63, 3);
+
         // draw the image for the current scan of the radar
         int rows = radar.getNumRows();
         int cols = radar.getNumCols();
@@ -77,7 +81,11 @@ public class RadarComponent extends JComponent
                 
                 if(radar.isDetected(row, col))
                 {
-                    g2.setColor(DETECTED_COLOR);
+                    /*Original color setting
+                    *g2.setColor(DETECTED_COLOR);
+                    */
+                    //New
+                    g2.setColor(new Color(generator.nextInt(256),generator.nextInt(256),generator.nextInt(256)));
                 }
                 else
                 {

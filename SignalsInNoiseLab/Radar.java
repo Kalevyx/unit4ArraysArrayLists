@@ -30,7 +30,7 @@ public class Radar
      * @param   rows    the number of rows in the radar grid
      * @param   cols    the number of columns in the radar grid
      */
-    public Radar(int rows, int cols, int rowOfMons, int colOfMons)
+    public Radar(int rows, int cols)
     {
         // initialize the currentScan 2D array and the accumulator 2D array
         
@@ -39,11 +39,6 @@ public class Radar
         this.currentScan = new boolean[rows][cols];
         this.accumulator = new int[rows][cols];
         //
-        
-        
-        // sets location of monster to where user inputs
-        monsterLocationRow = (int)(rowOfMons);
-        monsterLocationCol = (int)(colOfMons);
         
         noiseFraction = 0.05;
         numScans= 0;
@@ -63,7 +58,7 @@ public class Radar
             5. increment the numScans instance variable*/
         
         
-        //
+        //1
         for(int i = 0;
             i < this.currentScan.length;
             i++)
@@ -76,9 +71,13 @@ public class Radar
             }
         }
         
+        //2
         this.currentScan[this.monsterLocationRow][this.monsterLocationCol] = true;
+        
+        //3
         injectNoise();
         
+        //4
         for(int i = 0;
             i < this.currentScan.length;
             i++)
@@ -93,6 +92,8 @@ public class Radar
                 }
             }
         }
+        
+        //5
         numScans++;
         //
     }
@@ -208,9 +209,5 @@ public class Radar
                 }
             }
         }
-        //
-        
-        
     }
-    
 }
